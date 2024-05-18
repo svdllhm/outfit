@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    body {
+        background-image: linear-gradient(112deg, rgba(177, 133, 231, 0.46) 0%, rgba(177, 133, 231, 0.46) 14.286%,rgba(183, 112, 233, 0.46) 14.286%, rgba(183, 112, 233, 0.46) 28.572%,rgba(188, 90, 234, 0.46) 28.572%, rgba(188, 90, 234, 0.46) 42.858%,rgba(194, 69, 236, 0.46) 42.858%, rgba(194, 69, 236, 0.46) 57.144%,rgba(199, 48, 238, 0.46) 57.144%, rgba(199, 48, 238, 0.46) 71.43%,rgba(205, 26, 239, 0.46) 71.43%, rgba(205, 26, 239, 0.46) 85.716%,rgba(210, 5, 241, 0.46) 85.716%, rgba(210, 5, 241, 0.46) 100.002%),linear-gradient(157deg, rgb(73, 186, 245) 0%, rgb(73, 186, 245) 14.286%,rgb(64, 170, 226) 14.286%, rgb(64, 170, 226) 28.572%,rgb(55, 154, 206) 28.572%, rgb(55, 154, 206) 42.858%,rgb(46, 138, 187) 42.858%, rgb(46, 138, 187) 57.144%,rgb(37, 121, 168) 57.144%, rgb(37, 121, 168) 71.43%,rgb(28, 105, 148) 71.43%, rgb(28, 105, 148) 85.716%,rgb(19, 89, 129) 85.716%, rgb(19, 89, 129) 100.002%);
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 300px;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+    form {
+        margin-bottom: 20px;
+        animation: slideIn 0.5s ease-in-out;
+    }
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+    input[type="checkbox"] {
+        margin-right: 5px;
+        transform: translateY(2px);
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        animation: scaleIn 0.5s ease-in-out;
+    }
+    @keyframes scaleIn {
+        from {
+            transform: scale(0.9);
+        }
+        to {
+            transform: scale(1);
+        }
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Выберите возрастной диапазон:</h2>
+    <form id="ageForm">
+      <label><input type="checkbox" id="age1" name="age" value="30-40"> 30-40</label>
+      <label><input type="checkbox" id="age2" name="age" value="40-50"> 40-50</label>
+      <label><input type="checkbox" id="age3" name="age" value="50-60"> 50-60</label>
+    </form>
+    <h2>Выберите пол:</h2>
+    <form id="genderForm">
+      <label><input type="checkbox" id="gender1" name="gender" value="male"> Мужской</label>
+      <label><input type="checkbox" id="gender2" name="gender" value="female"> Женский</label>
+    </form>
+    <h2>Выберите тип одежды</h2>
+    <form id="clothesForm">
+        <label><input type="checkbox" name="clothes" value="Классический"> Классический</label>
+        <label><input type="checkbox" name="clothes" value="Бизнес кажуал"> Бизнес кажуал</label>
+        <label><input type="checkbox" name="clothes" value="Спорт"> Спорт</label>
+    </form>
+    <h2>Выберите сезон</h2>
+    <form id="seasonForm">
+        <label><input type="checkbox" name="season" value="spring"> Весна</label>
+        <label><input type="checkbox" name="season" value="summer"> Лето</label>
+        <label><input type="checkbox" name="season" value="autumn"> Осень</label>
+        <label><input type="checkbox" name="season" value="winter"> Зима</label>
+    </form>
+    <button onclick="searchClothes()">Поиск подходящей одежды</button>
+</div>
+
+<script>
+function searchClothes() {
+    var selectedSeason = getSelectedValues("seasonForm");
+    
+    if (selectedSeason.length === 0) {
+        alert("Пожалуйста, выберите хотя бы один сезон.");
+        return;
+    }
+
+    // Redirect based on the selected season
+    switch (selectedSeason[0]) {
+        case 'spring':
+            window.location.href = "spring.html";
+            break;
+        case 'summer':
+            window.location.href = "summer.html";
+            break;
+        case 'autumn':
+            window.location.href = "fall.html";
+            break;
+        case 'winter':
+            window.location.href = "winter.html";
+            break;
+        default:
+            break;
+    }
+}
+
+function getSelectedValues(formId) {
+    var form = document.getElementById(formId);
+    var checkboxes = form.querySelectorAll("input[type='checkbox']:checked");
+    var values = [];
+    for (var i = 0; i < checkboxes.length; i++) {
+        values.push(checkboxes[i].value);
+    }
+    return values;
+}
+</script>
+</body>
+</html>
